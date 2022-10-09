@@ -14,7 +14,7 @@ pygame.display.set_caption("Shooter")
 clock= pygame.time.Clock()
 
 def draw_text(surface, text, size, x, y):
-    font = pygame.font.SysFont("serif", size)
+    font = pygame.font.SysFont("comicsansms", size)
     text_surface = font.render(text, True, WHITE)
     text_rect = text_surface.get_rect()
     text_rect.midtop = (x, y)
@@ -118,9 +118,9 @@ class Explosion(pygame.sprite.Sprite):
 
 def show_go_screen():
     screen.blit(background, [0,0])
-    draw_text(screen, "SHOOTER", 65, WIDTH // 2, HEIGHT // 4)
-    draw_text(screen, "Instrucciones van aqui", 27, WIDTH // 2, HEIGHT // 2)
-    draw_text(screen, "Press Key", 20 , WIDTH // 2, HEIGHT * 3/4)
+    draw_text(screen, "MENTAL ILLNESS", 65, WIDTH // 2, HEIGHT // 4)
+    draw_text(screen, "NaNaNaNa Volando", 27, WIDTH // 2, HEIGHT // 2)
+    draw_text(screen, "Press CLICK", 20 , WIDTH // 2, HEIGHT * 3/4)
     pygame.display.flip()
     waiting = True
     while waiting:
@@ -128,12 +128,13 @@ def show_go_screen():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-            if event.type == pygame.KEYUP:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                pygame.mixer.music.play()
                 waiting = False    
 
 
 meteor_images = []
-meteor_list = ["assets/meteorGrey_big1.png", "assets/meteorGrey_big2.png", "assets/meteorGrey_big3.png", "assets/meteorGrey_big4.png",
+meteor_list = ["assets/1fcgrande1.png", "assets/1fcgrande2.png", "assets/1fcgrande3.png", "assets/meteorGrey_big4.png",
 				"assets/meteorGrey_med1.png", "assets/meteorGrey_med2.png", "assets/meteorGrey_small1.png", "assets/meteorGrey_small2.png",
 				"assets/meteorGrey_tiny1.png", "assets/meteorGrey_tiny2.png"]
 for img in meteor_list:
@@ -149,13 +150,14 @@ for i in range(9):
     explosion_anim.append(img_scale)
 
 # Cargar imagen de fondo/ Upload background image
-background = pygame.image.load("assets/background.png").convert()
+background = pygame.image.load("assets/fondo.png").convert()
 
 #Cargar sonidos
 laser_sound = pygame.mixer.Sound("assets/laser5.ogg")
 explosion_sound =pygame.mixer.Sound("assets/explosion.wav") 
 pygame.mixer.music.load("assets/micansion.ogg")
 pygame.mixer.music.set_volume(0.3)
+
 
 
 
@@ -166,7 +168,8 @@ pygame.mixer.music.play(loops=-1)
 game_over = True   
 running = True
 while running:
-    if game_over:
+    if game_over:   
+        pygame.mixer.music.stop()
         
         show_go_screen()
 
@@ -214,18 +217,19 @@ while running:
         meteor = Meteor()
         all_sprites.add(meteor)
         meteor_list.add(meteor)
-        if player.shield <=0:
+        if player.shield <=0:   
             game_over = True
+            
 
     screen.blit(background, [0, 0])
 
     all_sprites.draw(screen)  
 
     #Marcador
-    draw_text(screen, str(score), 25, WIDTH // 2,10)
+    draw_text(screen, str(score), 50, WIDTH // 2,10)
 
     #Escudo
-    draw_shield_bar(screen, 5, 5, player.shield)
+    draw_shield_bar(screen, 10, 10, player.shield)
 
 
     pygame.display.flip()
