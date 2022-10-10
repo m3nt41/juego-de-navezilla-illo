@@ -14,7 +14,7 @@ pygame.display.set_caption("Shooter")
 clock= pygame.time.Clock()
 
 def draw_text(surface, text, size, x, y):
-    font = pygame.font.SysFont("comicsansms", size)
+    font = pygame.font.SysFont("Goudy Stout", size)
     text_surface = font.render(text, True, WHITE)
     text_rect = text_surface.get_rect()
     text_rect.midtop = (x, y)
@@ -118,9 +118,9 @@ class Explosion(pygame.sprite.Sprite):
 
 def show_go_screen():
     screen.blit(background, [0,0])
-    draw_text(screen, "MENTAL ILLNESS", 65, WIDTH // 2, HEIGHT // 4)
-    draw_text(screen, "NaNaNaNa Volando", 27, WIDTH // 2, HEIGHT // 2)
-    draw_text(screen, "Press CLICK", 20 , WIDTH // 2, HEIGHT * 3/4)
+    draw_text(screen, "Space Coin", 65, WIDTH // 2, HEIGHT // 4)
+    draw_text(screen, "Shoot with space and move with arrows", 17, WIDTH // 2, HEIGHT // 2)
+    draw_text(screen, "Press CLICK TO START", 20 , WIDTH // 2, HEIGHT * 3/4)
     pygame.display.flip()
     waiting = True
     while waiting:
@@ -150,7 +150,7 @@ for i in range(9):
     explosion_anim.append(img_scale)
 
 # Cargar imagen de fondo/ Upload background image
-background = pygame.image.load("assets/fondo.png").convert()
+background = pygame.image.load("assets/background.png").convert()
 
 #Cargar sonidos
 laser_sound = pygame.mixer.Sound("assets/laser5.ogg")
@@ -225,7 +225,7 @@ while running:
 
     all_sprites.draw(screen)  
 
-    #Marcador
+    #Marcador/score
     draw_text(screen, str(score), 50, WIDTH // 2,10)
 
     #Escudo
