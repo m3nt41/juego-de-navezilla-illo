@@ -1,5 +1,6 @@
 from tkinter import Y, font
-import pygame, random
+import pygame
+import random
 
 WIDTH = 800
 HEIGHT = 600
@@ -62,7 +63,11 @@ class Player(pygame.sprite.Sprite):
 class Meteor(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = random.choice(meteor_images) 
+        self.image = random.choice(meteor_images)
+	if (self.image == "assets/1fcgrande1.png") or (self.image == "assets/1fcgrande2.png") or (self.image == "assets/1fcgrande3.png"):
+            self.coin = True
+        else:
+            self.coin = False
         self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
         self.rect.x = random.randrange(WIDTH - self.rect.width)
@@ -96,6 +101,10 @@ class Bullet(pygame.sprite.Sprite):
 class Explosion(pygame.sprite.Sprite):
     def __init__(self, center):
         super().__init__()
+	if self.coin == True:
+            addcoin = True
+        else:
+            addcoin = False
         self.image = explosion_anim[0]
         self.rect = self.image.get_rect() 
         self.rect.center = center
