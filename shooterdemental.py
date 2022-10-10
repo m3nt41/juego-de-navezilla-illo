@@ -69,6 +69,12 @@ class Meteor(pygame.sprite.Sprite):
         self.rect.y = random.randrange(-140, -100)
         self.speedy = random.randrange(1, 10)
         self.speedx = random.randrange(-5, 5)
+	
+    def setcoinvalue(self, value):
+        if (self.image == "assets/1fcgrande1.png") or (self.image == "assets/1fcgrande2.png") or (self.image == "assets/1fcgrande3.png"):
+            True
+        else:
+            False
 
     def update(self):
         self.rect.y += self.speedy  
@@ -95,6 +101,10 @@ class Bullet(pygame.sprite.Sprite):
 
 class Explosion(pygame.sprite.Sprite):
     def __init__(self, center):
+	if Meteor.setcoinvalue == True:
+            addcoin = "yes"
+        else:
+            addcoin = "no"
         super().__init__()
         self.image = explosion_anim[0]
         self.rect = self.image.get_rect() 
